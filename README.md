@@ -1,4 +1,4 @@
-# wmhchallenge
+# WMH Segmentation Challenge - MICCAI 2017
 Example docker containers for the WMH Segmentation Challenge.
 
 ## Python example
