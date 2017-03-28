@@ -1,5 +1,5 @@
 # WMH Segmentation Challenge - MICCAI 2017
-Example docker containers for the WMH Segmentation Challenge.
+Example docker containers for the WMH Segmentation Challenge. These example scripts simply threshold the orig/FLAIR.nii.gz image at 800, but can be used to see how applications can be containerized and run within the challenge.
 
 ## Python example
 A detailed description of the Python example is provided here: http://wmh.isi.uu.nl/methods/example-python/. When this container is run according to the commands below, TEAM-NAME=example:python, YOUR-COMMAND=python&nbsp;/wmhseg_example/example.py, and TEST-ORIG/PRE are the input folders specified here: http://wmh.isi.uu.nl/data/
