@@ -3,4 +3,4 @@ MAINTAINER hjkuijf
 
 RUN pip install numpy SimpleITK
 
-ADD python /wmhseg_example
+ADD python/src /wmhseg_example

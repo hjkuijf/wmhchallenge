@@ -13,5 +13,5 @@ ENV XAPPLRESDIR=/usr/local/MATLAB/MATLAB_Runtime/v901/X11/app-defaults
 ENV MCR_CACHE_VERBOSE=true
 ENV MCR_CACHE_ROOT=/tmp
 
-ADD matlab/example/for_redistribution_files_only /wmhseg_example
+ADD matlab/bin/for_redistribution_files_only /wmhseg_example
 RUN ["chmod", "+x", "/wmhseg_example/example"]
