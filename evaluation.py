@@ -43,8 +43,8 @@ def getImages(testFilename, resultFilename):
     
     # Remove non-WMH from the test and result images, since we don't evaluate on that
     maskedTestImage = sitk.BinaryThreshold(testImage, 0.5,  1.5, 1, 0) # WMH == 1    
-    nonWMHImage     = sitk.BinaryThreshold(testImage, 1.5,  2.5, 1, 0) # non-WMH == 2
-    maskedResultImage = sitk.MaskNegated(resultImage, nonWMHImage)
+    nonWMHImage     = sitk.BinaryThreshold(testImage, 1.5,  2.5, 0, 1) # non-WMH == 2
+    maskedResultImage = sitk.Mask(resultImage, nonWMHImage)
     
     # Convert to binary mask
     if 'integer' in maskedResultImage.GetPixelIDTypeAsString():
