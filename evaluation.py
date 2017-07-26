@@ -77,7 +77,7 @@ def getResultFilename(participantDir):
             currentRatio = difflib.SequenceMatcher(a = f, b = 'result.nii.gz').ratio()
             
             if currentRatio > maxRatio:
-                resultFilename = f
+                resultFilename = os.path.join(participantDir, f)
                 maxRatio = currentRatio
                 
     return resultFilename
