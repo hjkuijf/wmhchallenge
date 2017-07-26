@@ -41,6 +41,9 @@ def getImages(testFilename, resultFilename):
     # Check for equality
     assert testImage.GetSize() == resultImage.GetSize()
     
+    # Get meta data from the test-image, needed for some sitk methods that check this
+    resultImage.CopyInformation(testImage)
+    
     # Remove non-WMH from the test and result images, since we don't evaluate on that
     maskedTestImage = sitk.BinaryThreshold(testImage, 0.5,  1.5, 1, 0) # WMH == 1    
     nonWMHImage     = sitk.BinaryThreshold(testImage, 1.5,  2.5, 0, 1) # non-WMH == 2
