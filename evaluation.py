@@ -97,6 +97,12 @@ def getDSC(testImage, resultImage):
 
 def getHausdorff(testImage, resultImage):
     """Compute the Hausdorff distance."""
+    
+    # Hausdorff distance is only defined when something is detected
+    resultStatistics = sitk.StatisticsImageFilter()
+    resultStatistics.Execute(resultImage)
+    if resultStatistics.GetSum() == 0:
+        return float('nan')
         
     # Edge detection is done by ORIGINAL - ERODED, keeping the outer boundaries of lesions. Erosion is performed in 2D
     eTestImage   = sitk.BinaryErode(testImage, (1,1,0) )
