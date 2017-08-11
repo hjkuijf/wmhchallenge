@@ -143,17 +143,31 @@ def getLesionDetection(testImage, resultImage):
     ccTestArray = sitk.GetArrayFromImage(ccTest)
     lResultArray = sitk.GetArrayFromImage(lResult)
     
-    # recall = (number of detected WMH) / (number of true WMH)
-    recall = float(len(np.unique(lResultArray)) - 1) / (len(np.unique(ccTestArray)) - 1)
+    # recall = (number of detected WMH) / (number of true WMH) 
+    nWMH = len(np.unique(ccTestArray)) - 1
+    if nWMH == 0:
+        recall = 1.0
+    else:
+        recall = float(len(np.unique(lResultArray)) - 1) / nWMH
     
     # Connected components of results, to determine number of detected lesions
     ccResult = ccFilter.Execute(resultImage)
     ccResultArray = sitk.GetArrayFromImage(ccResult)
     
-    # precision = (number of detected WMH) / (number of all detections)
-    precision = float(len(np.unique(lResultArray)) - 1) / float(len(np.unique(ccResultArray)) - 1)
+    ccResultArray = sitk.GetArrayFromImage(ccResult)
+    lTestArray = sitk.GetArrayFromImage(lTest)
     
-    f1 = 2.0 * (precision * recall) / (precision + recall)
+    # precision = (number of detections that intersect with WMH) / (number of all detections)
+    nDetections = len(np.unique(ccResultArray)) - 1
+    if nDetections == 0:
+        precision = 1.0
+    else:
+        precision = float(len(np.unique(lTestArray)) - 1) / nDetections
+    
+    if precision + recall == 0.0:
+        f1 = 0.0
+    else:
+        f1 = 2.0 * (precision * recall) / (precision + recall)
     
     return recall, f1    
 
