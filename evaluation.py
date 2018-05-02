@@ -158,7 +158,7 @@ def getLesionDetection(testImage, resultImage):
     
     # Connected components of results, to determine number of detected lesions
     ccResult = ccFilter.Execute(resultImage)
-    ccResultArray = sitk.GetArrayFromImage(ccResult)
+    lTest = sitk.Multiply(ccResult, sitk.Cast(testImage, sitk.sitkUInt32))
     
     ccResultArray = sitk.GetArrayFromImage(ccResult)
     lTestArray = sitk.GetArrayFromImage(lTest)
