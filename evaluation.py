@@ -26,11 +26,11 @@ def do():
     avd = getAVD(testImage, resultImage)    
     recall, f1 = getLesionDetection(testImage, resultImage)    
     
-    print 'Dice',                dsc,       '(higher is better, max=1)'
-    print 'HD',                  h95, 'mm',  '(lower is better, min=0)'
-    print 'AVD',                 avd,  '%',  '(lower is better, min=0)'
-    print 'Lesion detection', recall,       '(higher is better, max=1)'
-    print 'Lesion F1',            f1,       '(higher is better, max=1)'
+    print('Dice',                dsc,       '(higher is better, max=1)')
+    print('HD',                  h95, 'mm',  '(lower is better, min=0)')
+    print('AVD',                 avd,  '%',  '(lower is better, min=0)')
+    print('Lesion detection', recall,       '(higher is better, max=1)')
+    print('Lesion F1',            f1,       '(higher is better, max=1)')
     
 
 def getImages(testFilename, resultFilename):
@@ -119,8 +119,9 @@ def getHausdorff(testImage, resultImage):
     # np.flipud    = elements in xyz order
     # np.transpose = create tuples (x,y,z)
     # testImage.TransformIndexToPhysicalPoint converts (xyz) to world coordinates (in mm)
-    testCoordinates   = np.apply_along_axis(testImage.TransformIndexToPhysicalPoint, 1, np.transpose( np.flipud( np.nonzero(hTestArray) )).astype(int) )
-    resultCoordinates = np.apply_along_axis(testImage.TransformIndexToPhysicalPoint, 1, np.transpose( np.flipud( np.nonzero(hResultArray) )).astype(int) )
+    testCoordinates   = [testImage.TransformIndexToPhysicalPoint(x.tolist()) for x in np.transpose( np.flipud( np.nonzero(hTestArray) ))]
+    resultCoordinates = [testImage.TransformIndexToPhysicalPoint(x.tolist()) for x in np.transpose( np.flipud( np.nonzero(hResultArray) ))]
+        
             
     # Use a kd-tree for fast spatial search
     def getDistancesFromAtoB(a, b):    
